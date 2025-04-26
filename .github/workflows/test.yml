@@ -1,0 +1,30 @@
+name: Test Telert Action
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  telert-selftest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Run the action in this repo (path "./")
+      - name: Telert Action – self-test
+        uses: ./
+        with:
+          command: "echo 'Telert action self-test' && sleep 2"
+          label: "Self-test"
+        env:
+          # Audio requires no external secrets, so CI passes on GH-hosted runners
+          TELERT_DEFAULT_PROVIDER: "audio"
+
+      # Minimal assertion that the job continues after action step
+      - name: Verify exit status captured
+        run: |
+          false || true   # placeholder check

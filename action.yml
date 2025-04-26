@@ -1,0 +1,33 @@
+name: "Telert Run"
+description: "Wrap any shell command, time it, and send a Telert notification"
+author: "Mihir Khandekar"
+branding:
+  icon: "bell"
+  color: "purple"
+
+inputs:
+  command:
+    description: "Shell command to execute"
+    required: true
+  label:
+    description: "Label shown in the notification"
+    default: "GitHub Action"
+  provider:
+    description: "Override Telert provider (e.g. slack,telegram)"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install Telert
+      run: pip install --no-cache-dir telert
+
+    - name: Run command with Telert
+      shell: bash
+      run: |
+        {{ inputs.command }} | \
+        telert ${{ inputs.label }}${{ inputs.provider && ' --provider ' + inputs.provider || '' }}
