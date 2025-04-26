@@ -1,4 +1,4 @@
-# Telert Run – GitHub Action :rocket:
+# Telert Run – GitHub Action
 
 ![Marketplace](https://img.shields.io/badge/GitHub%20Marketplace-Use%20this%20Action-blue?logo=github)
 ![License](https://img.shields.io/github/license/navig-me/telert-action.svg)
