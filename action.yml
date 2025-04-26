@@ -1,5 +1,5 @@
 name: "Telert Run"
-description: "Wrap any shell command, time it, and send a Telert notification"
+description: "Send multi channel notifications on completion of commands"
 author: "Mihir Khandekar"
 branding:
   icon: "bell"
