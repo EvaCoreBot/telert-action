@@ -1,7 +1,6 @@
 # Telert Run – GitHub Action :rocket:
 
 ![Marketplace](https://img.shields.io/badge/GitHub%20Marketplace-Use%20this%20Action-blue?logo=github)
-![CI](https://github.com/navig-me/telert-action/workflows/Test/badge.svg)
 ![License](https://img.shields.io/github/license/navig-me/telert-action.svg)
 
 **Wrap any shell command in your workflow, time it, and get an instant notification via Telegram, Slack, Microsoft Teams, Pushover, Desktop OS, or Audio when it finishes — success *or* failure.** Powered by the [telert CLI](https://github.com/navig-me/telert).
