@@ -1,6 +1,7 @@
 name: "Telert Run"
-description: "Send multi channel notifications on completion of commands"
+description: "Get notified on Telegram, Slack, Teams, Pushover (Android / iOS), Desktop when terminal commands finish — powered by Telert"
 author: "Mihir Khandekar"
+
 branding:
   icon: "bell"
   color: "purple"
@@ -13,8 +14,9 @@ inputs:
     description: "Label shown in the notification"
     default: "GitHub Action"
   provider:
-    description: "Override Telert provider (e.g. slack,telegram)"
+    description: "Comma-separated provider list (e.g. slack,telegram)"
     required: false
+    default: ""               # empty string by default
 
 runs:
   using: "composite"
@@ -24,10 +26,20 @@ runs:
         python-version: "3.x"
 
     - name: Install Telert
+      shell: bash
       run: pip install --no-cache-dir telert
 
     - name: Run command with Telert
       shell: bash
       run: |
-        {{ inputs.command }} | \
-        telert ${{ inputs.label }}${{ inputs.provider && ' --provider ' + inputs.provider || '' }}
+        CMD="${{ inputs.command }}"
+        LABEL="${{ inputs.label }}"
+        PROVIDER="${{ inputs.provider }}"
+
+        # Build optional flag only if provider was supplied
+        if [ -n "$PROVIDER" ]; then
+          PROVIDER_ARG="--provider $PROVIDER"
+        fi
+
+        # Execute the user's command and pipe the output to Telert
+        eval "$CMD" | telert "$LABEL" ${PROVIDER_ARG:-}
